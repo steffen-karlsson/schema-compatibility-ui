@@ -1,11 +1,11 @@
 package com.swk.sr.ui.service;
 
-import com.swk.sr.ui.error.SchemaCompareError;
-import com.swk.sr.ui.model.SchemaCompatibilityResponseDTO;
-import com.swk.sr.ui.model.SchemaCompatibilitySubjectDTO;
+import com.swk.sr.ui.error.SchemaParserError;
+import com.swk.sr.ui.model.SchemaTypeDTO;
+import io.confluent.kafka.schemaregistry.ParsedSchema;
 
-public interface CompatibilityService {
+public interface CompatibilityService<T extends ParsedSchema> {
+  SchemaTypeDTO getType();
 
-  SchemaCompatibilityResponseDTO compareSchemas(SchemaCompatibilitySubjectDTO schemaCompatibilitySubjectDTO) throws
-      SchemaCompareError;
+  T parseSchema(String schema) throws SchemaParserError;
 }

@@ -36,6 +36,7 @@ components:
       enum:
         - AVRO
         - JSON
+        - PROTOBUF
 
     CompatibilityLevel:
       type: string
