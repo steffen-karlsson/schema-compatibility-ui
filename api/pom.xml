@@ -203,6 +203,15 @@
                         </configuration>
                     </execution>
                     <execution>
+                        <id>pnpm generate</id>
+                        <goals>
+                            <goal>pnpm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>generate</arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>pnpm build</id>
                         <goals>
                             <goal>pnpm</goal>
