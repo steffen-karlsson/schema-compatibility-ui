@@ -6,7 +6,11 @@ import { ThemeContext } from 'components/contexts/ThemeContextProvider';
 
 import * as S from './AppToolbar.styled';
 
-const AppToolbar: React.FC = () => {
+export interface AppToolbarProps {
+  children?: React.ReactNode;
+}
+
+const AppToolbar: React.FC<AppToolbarProps> = ({ children }) => {
   const theme = useTheme();
   const { switchColorMode } = useContext(ThemeContext);
   const activateName = useMemo(
@@ -17,7 +21,7 @@ const AppToolbar: React.FC = () => {
   return (
     <S.AppBarWrapper $theme={theme}>
       <Toolbar>
-        <Box flex={1} />
+        {children ? <Box flex={1}>{children}</Box> : <Box flex={1} />}
         <S.BoxFlex0Wrapper>
           <Tooltip title={`Activate ${activateName} Mode`}>
             <S.IconButtonWrapper
