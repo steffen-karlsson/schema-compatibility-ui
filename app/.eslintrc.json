@@ -13,7 +13,7 @@
     "ecmaFeatures": {
       "jsx": true
     },
-    "ecmaVersion": 2018,
+    "ecmaVersion": "latest",
     "sourceType": "module",
     "project": [
       "./tsconfig.json",
@@ -24,7 +24,8 @@
     "react",
     "@typescript-eslint",
     "prettier",
-    "react-hooks"
+    "react-hooks",
+    "simple-import-sort"
   ],
   "extends": [
     "airbnb",
@@ -35,7 +36,12 @@
     "plugin:react/recommended",
     "prettier"
   ],
+  "ignorePatterns": [
+    "/src/generated-sources/**"
+  ],
   "rules": {
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
     "react/no-unused-prop-types": "off",
     "react/require-default-props": "off",
     "prettier/prettier": "warn",
@@ -43,9 +49,11 @@
     "jsx-a11y/label-has-associated-control": "off",
     "import/prefer-default-export": "off",
     "@typescript-eslint/no-explicit-any": "error",
-    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+    "react-hooks/rules-of-hooks": "error",
+    // Checks rules of Hooks
     // breaks builds as we still have those warns
-    "react-hooks/exhaustive-deps": "off", // Checks effect dependencies
+    "react-hooks/exhaustive-deps": "off",
+    // Checks effect dependencies
     "import/no-extraneous-dependencies": [
       "error",
       {
@@ -53,19 +61,6 @@
       }
     ],
     "import/no-cycle": "error",
-    "import/order": [
-      "error",
-      {
-        "groups": [
-          "builtin",
-          "external",
-          "parent",
-          "sibling",
-          "index"
-        ],
-        "newlines-between": "always"
-      }
-    ],
     "import/no-relative-parent-imports": "error",
     "no-debugger": "warn",
     "react/jsx-props-no-spreading": "off",
@@ -103,6 +98,49 @@
       ],
       "rules": {
         "react/jsx-props-no-spreading": "off"
+      }
+    },
+    {
+      "files": [
+        "*.ts",
+        "*.tsx"
+      ],
+      "rules": {
+        "simple-import-sort/imports": [
+          "error",
+          {
+            "groups": [
+              // Packages `react` related packages come first.
+              [
+                "^react",
+                "^@?\\w"
+              ],
+              // Internal packages.
+              [
+                "^(@|components)(/.*|$)"
+              ],
+              // Side effect imports.
+              [
+                "^\\u0000"
+              ],
+              // Parent imports. Put `..` last.
+              [
+                "^\\.\\.(?!/?$)",
+                "^\\.\\./?$"
+              ],
+              // Other relative imports. Put same-folder imports and `.` last.
+              [
+                "^\\./(?=.*/)(?!/?$)",
+                "^\\.(?!/?$)",
+                "^\\./?$"
+              ],
+              // Style imports.
+              [
+                "^.+\\.?(css)$"
+              ]
+            ]
+          }
+        ]
       }
     }
   ]
