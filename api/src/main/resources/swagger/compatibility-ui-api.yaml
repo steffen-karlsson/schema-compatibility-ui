@@ -42,11 +42,8 @@ components:
       type: string
       enum:
         - BACKWARD
-        - BACKWARD_TRANSITIVE
         - FORWARD
-        - FORWARD_TRANSITIVE
         - FULL
-        - FULL_TRANSITIVE
         - NONE
 
     SchemaCompatibilitySubject:
