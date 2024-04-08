@@ -1,18 +1,13 @@
 import React from 'react';
-import { Container } from '@mui/material';
 
 import AppToolbar from './common/Toolbar/AppToolbar';
+import * as S from './App.styled';
 
 const App: React.FC = () => {
   return (
-    <Container
-      maxWidth={false}
-      sx={{
-        padding: '0px !important',
-      }}
-    >
+    <S.ContainerWrapper maxWidth={false}>
       <AppToolbar />
-    </Container>
+    </S.ContainerWrapper>
   );
 };
 
