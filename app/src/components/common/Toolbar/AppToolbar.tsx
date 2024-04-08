@@ -1,15 +1,10 @@
 import React, { useContext, useMemo } from 'react';
 import { DarkModeOutlined, LightModeOutlined } from '@mui/icons-material';
-import {
-  AppBar,
-  Box,
-  IconButton,
-  Toolbar,
-  Tooltip,
-  useTheme,
-} from '@mui/material';
+import { Box, Toolbar, Tooltip, useTheme } from '@mui/material';
 
 import { ThemeContext } from 'components/contexts/ThemeContextProvider';
+
+import * as S from './AppToolbar.styled';
 
 const AppToolbar: React.FC = () => {
   const theme = useTheme();
@@ -20,23 +15,14 @@ const AppToolbar: React.FC = () => {
   );
 
   return (
-    <AppBar
-      position="static"
-      sx={{
-        padding: '0px !important',
-        bgcolor: theme.palette.background.default,
-      }}
-    >
+    <S.AppBarWrapper $theme={theme}>
       <Toolbar>
         <Box flex={1} />
-        <Box sx={{ flexGrow: 0 }}>
+        <S.BoxFlex0Wrapper>
           <Tooltip title={`Activate ${activateName} Mode`}>
-            <IconButton
+            <S.IconButtonWrapper
+              $theme={theme}
               onClick={switchColorMode}
-              sx={{
-                p: 1,
-                border: `1px ${theme.palette.text.disabled} solid`,
-              }}
               size="large"
               color="inherit"
             >
@@ -45,11 +31,11 @@ const AppToolbar: React.FC = () => {
               ) : (
                 <DarkModeOutlined color="action" />
               )}
-            </IconButton>
+            </S.IconButtonWrapper>
           </Tooltip>
-        </Box>
+        </S.BoxFlex0Wrapper>
       </Toolbar>
-    </AppBar>
+    </S.AppBarWrapper>
   );
 };
 
