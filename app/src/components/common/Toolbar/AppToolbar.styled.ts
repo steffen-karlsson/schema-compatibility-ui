@@ -1,4 +1,4 @@
-import { AppBar, Box, IconButton, Theme } from '@mui/material';
+import { AppBar, Box, IconButton, Theme, Typography } from '@mui/material';
 import styled from 'styled-components';
 
 interface ThemeProps {
@@ -29,4 +29,8 @@ export const BoxFlexWrapper = styled(Box)<AlignmentProps>`
 
 export const IconButtonWrapper = styled(IconButton)<ThemeProps>`
   border: 1px ${(p) => p.$theme.palette.text.disabled} solid;
+`;
+
+export const TypographyWithTheme = styled(Typography)<ThemeProps>`
+  color: ${(p) => p.$theme.palette.text.primary};
 `;

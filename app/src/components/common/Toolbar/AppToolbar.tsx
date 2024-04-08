@@ -12,12 +12,14 @@ export enum ChildrenAlignment {
 }
 
 export interface AppToolbarProps {
+  title: string;
   align: ChildrenAlignment;
   children?: React.ReactNode;
   childrenGap?: number;
 }
 
 const AppToolbar: React.FC<AppToolbarProps> = ({
+  title,
   align,
   children,
   childrenGap,
@@ -32,6 +34,7 @@ const AppToolbar: React.FC<AppToolbarProps> = ({
   return (
     <S.AppBarWrapper $theme={theme}>
       <Toolbar>
+        <S.TypographyWithTheme $theme={theme}>{title}</S.TypographyWithTheme>
         {children ? (
           <S.BoxFlexWrapper align={align} gap={childrenGap} flex={1}>
             {children}

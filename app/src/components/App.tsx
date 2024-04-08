@@ -8,7 +8,11 @@ import * as S from './App.styled';
 const App: React.FC = () => {
   return (
     <S.ContainerWrapper maxWidth={false}>
-      <AppToolbar align={ChildrenAlignment.RIGHT} childrenGap={10}>
+      <AppToolbar
+        title="Schema Compatibility UI"
+        align={ChildrenAlignment.RIGHT}
+        childrenGap={10}
+      >
         <SchemaTypeDropdown />
         <CompatibilityLevelDropdown />
       </AppToolbar>
