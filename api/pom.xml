@@ -28,6 +28,21 @@
             <artifactId>avro</artifactId>
             <version>${org.apache.avro.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>0.2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>2.2.20</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -69,6 +84,37 @@
                 <configuration>
                     <argLine>@{argLine} --illegal-access=permit</argLine>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>${openapi-generator-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>generate-backend-api</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${project.basedir}/src/main/resources/swagger/compatibility-ui-api.yaml</inputSpec>
+                            <output>${project.build.directory}/generated-sources/api</output>
+                            <generatorName>spring</generatorName>
+                            <modelNameSuffix>DTO</modelNameSuffix>
+                            <configOptions>
+                                <modelPackage>com.swk.sr.ui.model</modelPackage>
+                                <apiPackage>com.swk.sr.ui.api</apiPackage>
+                                <sourceFolder>ui-contract</sourceFolder>
+                                <reactive>true</reactive>
+                                <interfaceOnly>true</interfaceOnly>
+                                <skipDefaultInterface>true</skipDefaultInterface>
+                                <useBeanValidation>true</useBeanValidation>
+                                <useTags>true</useTags>
+                                <useSpringBoot3>true</useSpringBoot3>
+                                <dateLibrary>java8</dateLibrary>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
