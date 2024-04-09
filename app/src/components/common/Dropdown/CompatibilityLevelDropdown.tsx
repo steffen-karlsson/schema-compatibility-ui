@@ -9,14 +9,23 @@ const CompatibilityLevelDropdown: React.FC = () => {
     label: key.toLowerCase(),
   }));
 
+  if (!localStorage.getItem('compatibilityLevel')) {
+    localStorage.setItem('compatibilityLevel', CompatibilityLevel.BACKWARD);
+  }
+  const [compatibilityLevel, setCompatibilityLevel] =
+    React.useState<CompatibilityLevel>(
+      localStorage.getItem('compatibilityLevel') as CompatibilityLevel
+    );
+
   return (
     <Dropdown
       props={{ size: 'small' }}
       label="Compatibility Level"
       options={options}
-      value={CompatibilityLevel.BACKWARD}
+      value={compatibilityLevel}
       onChange={(value: string) => {
-        console.log(value);
+        localStorage.setItem('compatibilityLevel', value);
+        setCompatibilityLevel(value as CompatibilityLevel);
       }}
     />
   );

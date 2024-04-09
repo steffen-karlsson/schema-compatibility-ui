@@ -18,10 +18,24 @@ export const ThemeContext = createContext<ThemeContextType>({
 });
 
 export const ThemeContextProvider = ({ children }: ThemeProviderProps) => {
-  const [mode, setMode] = useState<'light' | 'dark'>('light');
+  if (localStorage.getItem('theme') === null) {
+    localStorage.setItem('theme', 'light');
+  }
+
+  const [mode, setMode] = useState<'light' | 'dark'>(
+    localStorage.getItem('theme') as 'light' | 'dark'
+  );
 
   const switchColorMode = () => {
-    setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+    setMode((prevMode) => {
+      if (prevMode === 'dark') {
+        localStorage.setItem('theme', 'light');
+        return 'light';
+      }
+
+      localStorage.setItem('theme', 'dark');
+      return 'dark';
+    });
   };
 
   const theme = useMemo(

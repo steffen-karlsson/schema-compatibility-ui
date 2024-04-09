@@ -9,14 +9,23 @@ const SchemaTypeDropdown: React.FC = () => {
     label: key.toLowerCase(),
   }));
 
+  if (!localStorage.getItem('schemaType')) {
+    localStorage.setItem('schemaType', SchemaType.AVRO);
+  }
+
+  const [schemaType, setSchemaType] = React.useState<SchemaType>(
+    localStorage.getItem('schemaType') as SchemaType
+  );
+
   return (
     <Dropdown
       props={{ size: 'small' }}
       label="Schema Type"
       options={options}
-      value={SchemaType.AVRO}
+      value={schemaType}
       onChange={(value: string) => {
-        console.log(value);
+        localStorage.setItem('schemaType', value);
+        setSchemaType(value as SchemaType);
       }}
     />
   );
