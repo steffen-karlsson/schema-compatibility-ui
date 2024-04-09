@@ -8,6 +8,8 @@ import 'ace-builds/src-noconflict/mode-json5';
 import 'ace-builds/src-noconflict/theme-github';
 import 'ace-builds/src-noconflict/theme-monokai';
 
+import './editor.css';
+
 const Editor: React.FC = () => {
   const theme = useTheme();
   const schemaType = localStorage.getItem('schemaType') as SchemaType;
@@ -23,7 +25,9 @@ const Editor: React.FC = () => {
       splits={2}
       width="100%"
       showGutter
+      fontSize={14}
       highlightActiveLine={false}
+      showPrintMargin={false}
       enableBasicAutocompletion
       orientation="beside"
       editorProps={{ $blockScrolling: true }}
