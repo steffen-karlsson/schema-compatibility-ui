@@ -19,57 +19,56 @@ export interface AppToolbarProps {
   childrenGap?: number;
 }
 
-const AppToolbar: React.FC<AppToolbarProps> = ({
-  title,
-  icon,
-  align,
-  children,
-  childrenGap,
-}) => {
-  const theme = useTheme();
-  const { switchColorMode } = useContext(ThemeContext);
-  const activateName = useMemo(
-    () => (theme.palette.mode === 'dark' ? 'Light' : 'Dark'),
-    [theme]
-  );
+const AppToolbar = React.forwardRef<HTMLDivElement, AppToolbarProps>(
+  (props, ref) => {
+    const { title, icon, align, children, childrenGap } = props;
+    const theme = useTheme();
+    const { switchColorMode } = useContext(ThemeContext);
+    const activateName = useMemo(
+      () => (theme.palette.mode === 'dark' ? 'Light' : 'Dark'),
+      [theme]
+    );
 
-  return (
-    <S.AppBarWrapper $theme={theme}>
-      <Toolbar>
-        <S.BrandDisplayWrapper>
-          {icon && (
-            <S.IconWrapper $theme={theme} color="inherit" fontSize="large">
-              {icon}
-            </S.IconWrapper>
+    return (
+      <S.AppBarWrapper $theme={theme} ref={ref}>
+        <Toolbar>
+          <S.BrandDisplayWrapper>
+            {icon && (
+              <S.IconWrapper $theme={theme} color="inherit" fontSize="large">
+                {icon}
+              </S.IconWrapper>
+            )}
+            <S.TypographyWithTheme $theme={theme}>
+              {title}
+            </S.TypographyWithTheme>
+          </S.BrandDisplayWrapper>
+          {children ? (
+            <S.BoxFlexWrapper align={align} gap={childrenGap} flex={1}>
+              {children}
+            </S.BoxFlexWrapper>
+          ) : (
+            <Box flex={1} />
           )}
-          <S.TypographyWithTheme $theme={theme}>{title}</S.TypographyWithTheme>
-        </S.BrandDisplayWrapper>
-        {children ? (
-          <S.BoxFlexWrapper align={align} gap={childrenGap} flex={1}>
-            {children}
-          </S.BoxFlexWrapper>
-        ) : (
-          <Box flex={1} />
-        )}
-        <S.BoxFlex0Wrapper>
-          <Tooltip title={`Activate ${activateName} Mode`}>
-            <S.IconButtonWrapper
-              $theme={theme}
-              onClick={switchColorMode}
-              size="small"
-              color="inherit"
-            >
-              {theme.palette.mode === 'dark' ? (
-                <LightModeOutlined />
-              ) : (
-                <DarkModeOutlined color="action" />
-              )}
-            </S.IconButtonWrapper>
-          </Tooltip>
-        </S.BoxFlex0Wrapper>
-      </Toolbar>
-    </S.AppBarWrapper>
-  );
-};
+          <S.BoxFlex0Wrapper>
+            <Tooltip title={`Activate ${activateName} Mode`}>
+              <S.IconButtonWrapper
+                $theme={theme}
+                onClick={switchColorMode}
+                size="small"
+                color="inherit"
+              >
+                {theme.palette.mode === 'dark' ? (
+                  <LightModeOutlined />
+                ) : (
+                  <DarkModeOutlined color="action" />
+                )}
+              </S.IconButtonWrapper>
+            </Tooltip>
+          </S.BoxFlex0Wrapper>
+        </Toolbar>
+      </S.AppBarWrapper>
+    );
+  }
+);
 
 export default AppToolbar;
