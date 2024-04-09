@@ -15,7 +15,6 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (toolbarRef.current) {
-      console.log('height', vh - toolbarRef.current.clientHeight);
       setHeight(vh - toolbarRef.current.clientHeight);
     }
   }, [vh, vw, toolbarRef]);
