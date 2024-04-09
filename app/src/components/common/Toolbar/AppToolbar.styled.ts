@@ -1,4 +1,11 @@
-import { AppBar, Box, IconButton, Theme, Typography } from '@mui/material';
+import {
+  AppBar,
+  Box,
+  Icon,
+  IconButton,
+  Theme,
+  Typography,
+} from '@mui/material';
 import styled from 'styled-components';
 
 interface ThemeProps {
@@ -32,5 +39,16 @@ export const IconButtonWrapper = styled(IconButton)<ThemeProps>`
 `;
 
 export const TypographyWithTheme = styled(Typography)<ThemeProps>`
+  color: ${(p) => p.$theme.palette.text.primary};
+`;
+
+export const BrandDisplayWrapper = styled.div`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const IconWrapper = styled(Icon)<ThemeProps>`
+  align-content: center;
   color: ${(p) => p.$theme.palette.text.primary};
 `;

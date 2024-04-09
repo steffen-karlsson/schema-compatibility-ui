@@ -1,4 +1,5 @@
 import React from 'react';
+import CompareRoundedIcon from '@mui/icons-material/CompareRounded';
 
 import CompatibilityLevelDropdown from './common/Dropdown/CompatibilityLevelDropdown';
 import SchemaTypeDropdown from './common/Dropdown/SchemaTypeDropdown';
@@ -10,6 +11,7 @@ const App: React.FC = () => {
     <S.ContainerWrapper maxWidth={false}>
       <AppToolbar
         title="Schema Compatibility UI"
+        icon={<CompareRoundedIcon />}
         align={ChildrenAlignment.RIGHT}
         childrenGap={10}
       >

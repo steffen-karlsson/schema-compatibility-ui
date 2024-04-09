@@ -13,6 +13,7 @@ export enum ChildrenAlignment {
 
 export interface AppToolbarProps {
   title: string;
+  icon?: React.ReactNode;
   align: ChildrenAlignment;
   children?: React.ReactNode;
   childrenGap?: number;
@@ -20,6 +21,7 @@ export interface AppToolbarProps {
 
 const AppToolbar: React.FC<AppToolbarProps> = ({
   title,
+  icon,
   align,
   children,
   childrenGap,
@@ -34,7 +36,14 @@ const AppToolbar: React.FC<AppToolbarProps> = ({
   return (
     <S.AppBarWrapper $theme={theme}>
       <Toolbar>
-        <S.TypographyWithTheme $theme={theme}>{title}</S.TypographyWithTheme>
+        <S.BrandDisplayWrapper>
+          {icon && (
+            <S.IconWrapper $theme={theme} color="inherit" fontSize="large">
+              {icon}
+            </S.IconWrapper>
+          )}
+          <S.TypographyWithTheme $theme={theme}>{title}</S.TypographyWithTheme>
+        </S.BrandDisplayWrapper>
         {children ? (
           <S.BoxFlexWrapper align={align} gap={childrenGap} flex={1}>
             {children}
@@ -47,7 +56,7 @@ const AppToolbar: React.FC<AppToolbarProps> = ({
             <S.IconButtonWrapper
               $theme={theme}
               onClick={switchColorMode}
-              size="large"
+              size="medium"
               color="inherit"
             >
               {theme.palette.mode === 'dark' ? (
