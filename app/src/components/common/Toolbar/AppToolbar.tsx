@@ -56,7 +56,7 @@ const AppToolbar: React.FC<AppToolbarProps> = ({
             <S.IconButtonWrapper
               $theme={theme}
               onClick={switchColorMode}
-              size="medium"
+              size="small"
               color="inherit"
             >
               {theme.palette.mode === 'dark' ? (

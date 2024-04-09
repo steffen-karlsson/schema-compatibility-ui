@@ -16,6 +16,7 @@ export const AppBarWrapper = styled(AppBar)<ThemeProps>`
   position: static;
   padding: 0 !important;
   background-color: ${(p) => p.$theme.palette.background.default};
+  box-shadow: none !important;
 `;
 
 export const BoxFlex0Wrapper = styled(Box)`
