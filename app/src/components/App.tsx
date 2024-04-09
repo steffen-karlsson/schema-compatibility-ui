@@ -4,7 +4,7 @@ import CompareRoundedIcon from '@mui/icons-material/CompareRounded';
 import CompatibilityLevelDropdown from './common/Dropdown/CompatibilityLevelDropdown';
 import SchemaTypeDropdown from './common/Dropdown/SchemaTypeDropdown';
 import Editor from './common/Editor/Editor';
-import useWindowDimensions from './common/hooks/window-dimensions';
+import useWindowDimensions from './hooks/window-dimensions';
 import AppToolbar, { ChildrenAlignment } from './common/Toolbar/AppToolbar';
 import * as S from './App.styled';
 
