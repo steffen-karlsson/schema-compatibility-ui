@@ -60,8 +60,8 @@ components:
       required:
         - schemaType
         - compatibilityLevel
-        - schema1
-        - schema2
+        - existingSchema
+        - proposedSchema
 
     SchemaCompatibilityResponse:
       type: object
