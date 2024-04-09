@@ -14,4 +14,7 @@ export const ContentWrapper = styled.div<ContentWrapperProps>`
   display: flex;
   height: ${(p) => p.$height}px;
 `;
+
+export const SubmitWrapper = styled.div`
+  margin: auto 1rem 1rem auto;
 `;
