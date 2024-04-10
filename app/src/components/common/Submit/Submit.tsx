@@ -1,16 +1,42 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Check } from '@mui/icons-material';
 import LoadingButton from '@mui/lab/LoadingButton';
+import {
+  SCHEMA_COMPATIBILITY_LEVEL,
+  SCHEMA_EXISTING,
+  SCHEMA_PROPOSED,
+  SCHEMA_TYPE,
+} from 'storage/const';
 
-const Submit: React.FC = () => {
+export interface SubmitProps {
+  onValidateClick: () => boolean;
+}
+
+const Submit: React.FC<SubmitProps> = ({ onValidateClick }) => {
   const [loading, setLoading] = React.useState(false);
+  const [disabled, setDisabled] = React.useState(true);
+
+  useEffect(() => {
+    window.addEventListener('storage', () => {
+      setDisabled(
+        !localStorage.getItem(SCHEMA_COMPATIBILITY_LEVEL) ||
+          !localStorage.getItem(SCHEMA_TYPE) ||
+          !localStorage.getItem(SCHEMA_EXISTING) ||
+          !localStorage.getItem(SCHEMA_PROPOSED)
+      );
+    });
+  }, []);
 
   const onClick = () => {
     setLoading(true);
+    if (onValidateClick()) {
+      setLoading(false);
+    }
   };
 
   return (
     <LoadingButton
+      disabled={disabled}
       size="large"
       color="success"
       loading={loading}
