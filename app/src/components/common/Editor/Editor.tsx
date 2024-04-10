@@ -2,6 +2,8 @@ import React from 'react';
 import { split as SplitEditor } from 'react-ace';
 import { useTheme } from '@mui/material';
 import { SchemaType } from 'generated-sources';
+import { SCHEMA_EXISTING, SCHEMA_PROPOSED, SCHEMA_TYPE } from 'storage/const';
+import { removeLocalStorage, updateLocalStorage } from 'storage/local';
 
 import 'ace-builds/src-noconflict/mode-protobuf';
 import 'ace-builds/src-noconflict/mode-json5';
@@ -16,7 +18,21 @@ export interface EditorProps {
 
 const Editor: React.FC<EditorProps> = ({ height }) => {
   const theme = useTheme();
-  const schemaType = localStorage.getItem('schemaType') as SchemaType;
+  const schemaType = localStorage.getItem(SCHEMA_TYPE) as SchemaType;
+
+  const onEditorChange = (exiting: string, proposed: string) => {
+    if (exiting === '') {
+      removeLocalStorage(SCHEMA_EXISTING);
+    } else {
+      updateLocalStorage(SCHEMA_EXISTING, btoa(exiting));
+    }
+
+    if (proposed === '') {
+      removeLocalStorage(SCHEMA_PROPOSED);
+    } else {
+      updateLocalStorage(SCHEMA_PROPOSED, btoa(proposed));
+    }
+  };
 
   return (
     <SplitEditor
@@ -35,7 +51,16 @@ const Editor: React.FC<EditorProps> = ({ height }) => {
       showPrintMargin={false}
       enableBasicAutocompletion
       orientation="beside"
+      value={[
+        localStorage.getItem(SCHEMA_EXISTING)
+          ? atob(localStorage.getItem(SCHEMA_EXISTING) as string)
+          : '',
+        localStorage.getItem(SCHEMA_PROPOSED)
+          ? atob(localStorage.getItem(SCHEMA_PROPOSED) as string)
+          : '',
+      ]}
       editorProps={{ $blockScrolling: true }}
+      onChange={(value) => onEditorChange(value[0], value[1])}
     />
   );
 };
