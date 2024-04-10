@@ -4,6 +4,7 @@ import com.swk.sr.ui.error.SchemaCompareError;
 import com.swk.sr.ui.error.SchemaParserError;
 import com.swk.sr.ui.model.CompatibilityLevelDTO;
 import com.swk.sr.ui.model.SchemaCompatibilitySubjectDTO;
+import com.swk.sr.ui.utils.Json5Parser;
 import io.confluent.kafka.schemaregistry.CompatibilityChecker;
 import io.confluent.kafka.schemaregistry.ParsedSchema;
 import java.util.Collections;
@@ -42,13 +43,17 @@ public abstract class AbstractCompatibilityService<T extends ParsedSchema> imple
 
     CompatibilityChecker checker = COMPATIBILITY_CHECKERS.get(compatibilityLevel);
     List<String> validationErrors = checker.isCompatible(proposed, Collections.singletonList(existing));
+    List<String> jsonValidationErrors = validationErrors
+        .stream()
+        .map(Json5Parser::json5ToJSON)
+        .toList();
     if (validationErrors.isEmpty()) {
-      return new SchemaCompatibilityResult(true, "Schemas are compatible");
+      return new SchemaCompatibilityResult(true, Collections.emptyList());
     } else {
-      return new SchemaCompatibilityResult(false, String.join(", ", validationErrors));
+      return new SchemaCompatibilityResult(false, jsonValidationErrors);
     }
   }
 
-  public record SchemaCompatibilityResult(boolean isCompatible, String message) {
+  public record SchemaCompatibilityResult(boolean isCompatible, List<String> errors) {
   }
 }

@@ -68,8 +68,10 @@ components:
       properties:
         isCompatible:
           type: boolean
-        message:
-          type: string
+        errors:
+          type: array
+          items:
+            type: string
       required:
         - isCompatible
-        - message
+        - errors

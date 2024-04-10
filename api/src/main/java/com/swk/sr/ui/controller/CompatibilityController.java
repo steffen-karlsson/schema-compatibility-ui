@@ -8,8 +8,10 @@ import com.swk.sr.ui.model.SchemaCompatibilityResponseDTO;
 import com.swk.sr.ui.model.SchemaCompatibilitySubjectDTO;
 import com.swk.sr.ui.service.AbstractCompatibilityService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -24,8 +26,8 @@ public class CompatibilityController implements SchemaCompatibilityApi {
       Mono<SchemaCompatibilitySubjectDTO> schemaCompatibilitySubjectDTO, ServerWebExchange exchange) {
     return schemaCompatibilitySubjectDTO
         .flatMap(this::compareSchemas)
-        .onErrorResume(SchemaCompareError.class,
-            e -> Mono.just(new SchemaCompatibilityResponseDTO(false, e.getMessage())))
+        .onErrorMap(SchemaCompareError.class,
+            e -> new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, e.getMessage(), e))
         .map(ResponseEntity::ok);
   }
 
@@ -35,7 +37,7 @@ public class CompatibilityController implements SchemaCompatibilityApi {
       AbstractCompatibilityService.SchemaCompatibilityResult result =
           schemaProviderFactory.getProvider(schemaCompatibilitySubjectDTO.getSchemaType())
               .compareSchemas(schemaCompatibilitySubjectDTO);
-      return Mono.just(new SchemaCompatibilityResponseDTO(result.isCompatible(), result.message()));
+      return Mono.just(new SchemaCompatibilityResponseDTO(result.isCompatible(), result.errors()));
     } catch (SchemaCompareError | SchemaParserError e) {
       return Mono.error(e);
     }
