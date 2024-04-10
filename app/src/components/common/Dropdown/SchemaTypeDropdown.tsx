@@ -1,5 +1,6 @@
 import React from 'react';
 import { SchemaType } from 'generated-sources';
+import { SCHEMA_TYPE } from 'storage/const';
 
 import Dropdown from './Dropdown';
 
@@ -9,12 +10,12 @@ const SchemaTypeDropdown: React.FC = () => {
     label: key.toLowerCase(),
   }));
 
-  if (!localStorage.getItem('schemaType')) {
-    localStorage.setItem('schemaType', SchemaType.AVRO);
+  if (!localStorage.getItem(SCHEMA_TYPE)) {
+    localStorage.setItem(SCHEMA_TYPE, SchemaType.AVRO);
   }
 
   const [schemaType, setSchemaType] = React.useState<SchemaType>(
-    localStorage.getItem('schemaType') as SchemaType
+    localStorage.getItem(SCHEMA_TYPE) as SchemaType
   );
 
   return (
@@ -24,7 +25,7 @@ const SchemaTypeDropdown: React.FC = () => {
       options={options}
       value={schemaType}
       onChange={(value: string) => {
-        localStorage.setItem('schemaType', value);
+        localStorage.setItem(SCHEMA_TYPE, value);
         setSchemaType(value as SchemaType);
       }}
     />

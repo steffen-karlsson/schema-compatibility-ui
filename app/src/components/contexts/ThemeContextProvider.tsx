@@ -4,6 +4,7 @@ import {
   StyledEngineProvider,
   ThemeProvider,
 } from '@mui/material/styles';
+import { THEME } from 'storage/const';
 
 type ThemeContextType = {
   switchColorMode: () => void;
@@ -18,22 +19,22 @@ export const ThemeContext = createContext<ThemeContextType>({
 });
 
 export const ThemeContextProvider = ({ children }: ThemeProviderProps) => {
-  if (localStorage.getItem('theme') === null) {
-    localStorage.setItem('theme', 'light');
+  if (localStorage.getItem(THEME) === null) {
+    localStorage.setItem(THEME, 'light');
   }
 
   const [mode, setMode] = useState<'light' | 'dark'>(
-    localStorage.getItem('theme') as 'light' | 'dark'
+    localStorage.getItem(THEME) as 'light' | 'dark'
   );
 
   const switchColorMode = () => {
     setMode((prevMode) => {
       if (prevMode === 'dark') {
-        localStorage.setItem('theme', 'light');
+        localStorage.setItem(THEME, 'light');
         return 'light';
       }
 
-      localStorage.setItem('theme', 'dark');
+      localStorage.setItem(THEME, 'dark');
       return 'dark';
     });
   };
