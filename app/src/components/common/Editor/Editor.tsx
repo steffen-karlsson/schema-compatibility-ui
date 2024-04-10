@@ -10,7 +10,11 @@ import 'ace-builds/src-noconflict/theme-monokai';
 
 import './editor.css';
 
-const Editor: React.FC = () => {
+export interface EditorProps {
+  height: number;
+}
+
+const Editor: React.FC<EditorProps> = ({ height }) => {
   const theme = useTheme();
   const schemaType = localStorage.getItem('schemaType') as SchemaType;
 
@@ -24,6 +28,7 @@ const Editor: React.FC = () => {
       theme={theme.palette.mode === 'dark' ? 'monokai' : 'github'}
       splits={2}
       width="100%"
+      height={`${height}px`}
       showGutter
       fontSize={14}
       highlightActiveLine={false}

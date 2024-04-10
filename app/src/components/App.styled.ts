@@ -16,5 +16,5 @@ export const ContentWrapper = styled.div<ContentWrapperProps>`
 `;
 
 export const SubmitWrapper = styled.div`
-  margin: auto 1rem 1rem auto;
+  margin: auto 2rem 2rem auto;
 `;

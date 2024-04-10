@@ -1,3 +1,7 @@
 .ace_editor {
   position: absolute !important;
 }
+
+.ace_editor > .ace_editor {
+  height: 100% !important;
+}
