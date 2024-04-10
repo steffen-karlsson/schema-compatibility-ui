@@ -5,6 +5,7 @@ import {
   ThemeProvider,
 } from '@mui/material/styles';
 import { THEME } from 'storage/const';
+import { updateLocalStorage } from 'storage/local';
 
 type ThemeContextType = {
   switchColorMode: () => void;
@@ -20,7 +21,7 @@ export const ThemeContext = createContext<ThemeContextType>({
 
 export const ThemeContextProvider = ({ children }: ThemeProviderProps) => {
   if (localStorage.getItem(THEME) === null) {
-    localStorage.setItem(THEME, 'light');
+    updateLocalStorage(THEME, 'light');
   }
 
   const [mode, setMode] = useState<'light' | 'dark'>(
@@ -30,11 +31,11 @@ export const ThemeContextProvider = ({ children }: ThemeProviderProps) => {
   const switchColorMode = () => {
     setMode((prevMode) => {
       if (prevMode === 'dark') {
-        localStorage.setItem(THEME, 'light');
+        updateLocalStorage(THEME, 'light');
         return 'light';
       }
 
-      localStorage.setItem(THEME, 'dark');
+      updateLocalStorage(THEME, 'dark');
       return 'dark';
     });
   };

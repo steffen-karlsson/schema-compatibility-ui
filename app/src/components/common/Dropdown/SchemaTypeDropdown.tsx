@@ -1,6 +1,7 @@
 import React from 'react';
 import { SchemaType } from 'generated-sources';
 import { SCHEMA_TYPE } from 'storage/const';
+import { updateLocalStorage } from 'storage/local';
 
 import Dropdown from './Dropdown';
 
@@ -11,7 +12,7 @@ const SchemaTypeDropdown: React.FC = () => {
   }));
 
   if (!localStorage.getItem(SCHEMA_TYPE)) {
-    localStorage.setItem(SCHEMA_TYPE, SchemaType.AVRO);
+    updateLocalStorage(SCHEMA_TYPE, SchemaType.AVRO);
   }
 
   const [schemaType, setSchemaType] = React.useState<SchemaType>(
@@ -25,7 +26,7 @@ const SchemaTypeDropdown: React.FC = () => {
       options={options}
       value={schemaType}
       onChange={(value: string) => {
-        localStorage.setItem(SCHEMA_TYPE, value);
+        updateLocalStorage(SCHEMA_TYPE, value);
         setSchemaType(value as SchemaType);
       }}
     />

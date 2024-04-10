@@ -1,6 +1,7 @@
 import React from 'react';
 import { CompatibilityLevel } from 'generated-sources';
 import { SCHEMA_COMPATIBILITY_LEVEL } from 'storage/const';
+import { updateLocalStorage } from 'storage/local';
 
 import Dropdown from './Dropdown';
 
@@ -11,10 +12,7 @@ const CompatibilityLevelDropdown: React.FC = () => {
   }));
 
   if (!localStorage.getItem(SCHEMA_COMPATIBILITY_LEVEL)) {
-    localStorage.setItem(
-      SCHEMA_COMPATIBILITY_LEVEL,
-      CompatibilityLevel.BACKWARD
-    );
+    updateLocalStorage(SCHEMA_COMPATIBILITY_LEVEL, CompatibilityLevel.BACKWARD);
   }
   const [compatibilityLevel, setCompatibilityLevel] =
     React.useState<CompatibilityLevel>(
@@ -28,7 +26,7 @@ const CompatibilityLevelDropdown: React.FC = () => {
       options={options}
       value={compatibilityLevel}
       onChange={(value: string) => {
-        localStorage.setItem(SCHEMA_COMPATIBILITY_LEVEL, value);
+        updateLocalStorage(SCHEMA_COMPATIBILITY_LEVEL, value);
         setCompatibilityLevel(value as CompatibilityLevel);
       }}
     />
