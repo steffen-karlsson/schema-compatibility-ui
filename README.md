@@ -1,4 +1,4 @@
-# ScheMax - UI for maximising your schemas compabitbility
+# Schemax - UI for maximising your schemas compabitbility
 
 Versatile, fast and lightweight web UI for validating schema compatibility levels in Confluent Schema Registry, among others.
 
