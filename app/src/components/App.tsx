@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
-import CompareRoundedIcon from '@mui/icons-material/CompareRounded';
 import { validate } from 'api/validate';
 
 import CompatibilityLevelDropdown from './common/Dropdown/CompatibilityLevelDropdown';
@@ -73,7 +72,9 @@ const App: React.FC = () => {
       <AppToolbar
         ref={toolbarRef}
         title="Schema Compatibility UI"
-        icon={<CompareRoundedIcon />}
+        icon={
+          <img src={`${process.env.PUBLIC_URL}/logo.svg`} height="30" alt="" />
+        }
         align={ChildrenAlignment.RIGHT}
         childrenGap={10}
       >

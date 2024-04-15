@@ -1,6 +1,7 @@
-# Schemax - UI for maximising your schemas compabitbility
+![Schemax](app/public/banner.png)
 
-Versatile, fast and lightweight web UI for validating schema compatibility levels in Confluent Schema Registry, among others.
+Versatile, fast and lightweight web UI for validating schema compatibility levels in Confluent Schema Registry, among
+others.
 
 ## Build
 

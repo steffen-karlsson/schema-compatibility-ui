@@ -41,6 +41,7 @@ export const IconButtonWrapper = styled(IconButton)<ThemeProps>`
 
 export const TypographyWithTheme = styled(Typography)<ThemeProps>`
   color: ${(p) => p.$theme.palette.text.primary};
+  padding-left: 10px;
 `;
 
 export const BrandDisplayWrapper = styled.div`
