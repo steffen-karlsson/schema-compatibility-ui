@@ -16,6 +16,25 @@ excessive system resources, ensuring that it can run smoothly even on systems wi
 In addition to the Confluent Schema Registry, the application is also compatible with other schema registries. This
 broad compatibility makes it a flexible tool that can be integrated into a variety of development workflows.
 
+### Support
+
+**Schema Types:**
+
+- Avro
+- Protobuf
+- JSON
+
+**Compatibility Levels:**
+
+| **Compatibility Level** 	 | **Changes allowed**                               	 | **Check**    	 | **Upgrade first** 	 |
+|---------------------------|-----------------------------------------------------|----------------|---------------------|
+| BACKWARD                	 | - Delete fields<br>- Add optional fields          	 | Last version 	 | Consumers         	 |
+| FORWARD                 	 | - Add fields<br>- Delete optional fields-         	 | Last version 	 | Producers         	 |
+| FULL                    	 | - Add optional fields<br>- Delete optional fields 	 | Last version 	 | Any order         	 |
+| NONE                    	 | - All changes are accepted                        	 | Disabled     	 | Depends           	 |
+
+### Example
+
 ![Example](example.png)
 
 ## Build
