@@ -16,6 +16,8 @@ excessive system resources, ensuring that it can run smoothly even on systems wi
 In addition to the Confluent Schema Registry, the application is also compatible with other schema registries. This
 broad compatibility makes it a flexible tool that can be integrated into a variety of development workflows.
 
+![Example](example.png)
+
 ## Build
 
 ```bash
