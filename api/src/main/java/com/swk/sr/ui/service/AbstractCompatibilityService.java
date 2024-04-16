@@ -27,13 +27,13 @@ public abstract class AbstractCompatibilityService<T extends ParsedSchema> imple
     try {
       existing = parseSchema(schemaCompatibilitySubjectDTO.getExistingSchema());
     } catch (SchemaParserError e) {
-      throw new SchemaCompareError("Invalid existing schema", e);
+      throw new SchemaCompareError(String.format("Invalid existing schema: %s", e.getMessage()), e);
     }
 
     try {
       proposed = parseSchema(schemaCompatibilitySubjectDTO.getProposedSchema());
     } catch (SchemaParserError e) {
-      throw new SchemaCompareError("Invalid proposed schema", e);
+      throw new SchemaCompareError(String.format("Invalid proposed schema: %s", e.getMessage()), e);
     }
 
     CompatibilityLevelDTO compatibilityLevel = schemaCompatibilitySubjectDTO.getCompatibilityLevel();

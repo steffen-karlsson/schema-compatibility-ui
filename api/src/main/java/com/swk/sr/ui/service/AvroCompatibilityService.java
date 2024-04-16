@@ -19,7 +19,7 @@ public class AvroCompatibilityService extends AbstractCompatibilityService<AvroS
     try {
       return new AvroSchema(schema);
     } catch (SchemaParseException e) {
-      throw new SchemaParserError("Invalid schema", e);
+      throw new SchemaParserError(e.getMessage(), e);
     }
   }
 }
