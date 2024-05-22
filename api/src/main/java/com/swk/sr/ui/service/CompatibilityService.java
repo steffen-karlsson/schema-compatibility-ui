@@ -8,4 +8,6 @@ public interface CompatibilityService<T extends ParsedSchema> {
   SchemaTypeDTO getType();
 
   T parseSchema(String schema) throws SchemaParserError;
+
+  String parseValidationErrors(String json5);
 }
