@@ -12,12 +12,8 @@ public class Json5Parser {
     // Utility class
   }
 
-  public static String json5ToJSON(String json5) {
-    try {
-      String replacedJson5 = json5.replaceAll(pattern.pattern(), "");
-      return Jankson.builder().build().load(replacedJson5).toJson();
-    } catch (SyntaxError e) {
-      throw new RuntimeException(e);
-    }
+  public static String json5ToJSON(String json5) throws SyntaxError {
+    String replacedJson5 = json5.replaceAll(pattern.pattern(), "");
+    return Jankson.builder().build().load(replacedJson5).toJson();
   }
 }
