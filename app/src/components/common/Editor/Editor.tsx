@@ -66,9 +66,6 @@ const Editor: React.FC<EditorProps> = ({ height }) => {
       value={[existing, proposed]}
       editorProps={{ $blockScrolling: true }}
       onChange={(value) => onEditorChange(value[0], value[1])}
-      onCursorChange={() => {
-        console.log('onCursorChange');
-      }}
     />
   );
 };
