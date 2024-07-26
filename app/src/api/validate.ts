@@ -55,7 +55,7 @@ export async function validate(): Promise<ValidateResponse> {
       })
       .then((data) => {
         const errors: ValidationError[] = data.errors
-          .slice(0, -1)
+          .slice(0, data.errors.length === 1 ? 1 : -1)
           .map((error) => {
             const errorMessage: FailedMessageContent = JSON.parse(error);
             return {
