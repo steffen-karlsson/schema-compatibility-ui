@@ -5,6 +5,7 @@ import {
   SchemaCompatibilitySubject,
   SchemaType,
 } from 'generated-sources';
+import { b64dec } from 'lib/b64';
 import {
   SCHEMA_COMPATIBILITY_LEVEL,
   SCHEMA_EXISTING,
@@ -45,8 +46,8 @@ export async function validate(): Promise<ValidateResponse> {
     compatibilityLevel: localStorage.getItem(
       SCHEMA_COMPATIBILITY_LEVEL
     ) as CompatibilityLevel,
-    existingSchema: atob(localStorage.getItem(SCHEMA_EXISTING) as string),
-    proposedSchema: atob(localStorage.getItem(SCHEMA_PROPOSED) as string),
+    existingSchema: b64dec(localStorage.getItem(SCHEMA_EXISTING) as string),
+    proposedSchema: b64dec(localStorage.getItem(SCHEMA_PROPOSED) as string),
   };
   return new Promise((resolve) => {
     validationApi

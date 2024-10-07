@@ -2,6 +2,7 @@ import React from 'react';
 import { split as SplitEditor } from 'react-ace';
 import { useTheme } from '@mui/material';
 import { SchemaType } from 'generated-sources';
+import { b64dec, b64enc } from 'lib/b64';
 import { SCHEMA_EXISTING, SCHEMA_PROPOSED, SCHEMA_TYPE } from 'storage/const';
 import { removeLocalStorage, updateLocalStorage } from 'storage/local';
 
@@ -21,12 +22,12 @@ const Editor: React.FC<EditorProps> = ({ height }) => {
   const schemaType = localStorage.getItem(SCHEMA_TYPE) as SchemaType;
   const [existing, setExisting] = React.useState<string>(
     localStorage.getItem(SCHEMA_EXISTING)
-      ? atob(localStorage.getItem(SCHEMA_EXISTING) as string)
+      ? b64dec(localStorage.getItem(SCHEMA_EXISTING) as string)
       : ''
   );
   const [proposed, setProposed] = React.useState<string>(
     localStorage.getItem(SCHEMA_PROPOSED)
-      ? atob(localStorage.getItem(SCHEMA_PROPOSED) as string)
+      ? b64dec(localStorage.getItem(SCHEMA_PROPOSED) as string)
       : ''
   );
 
@@ -35,14 +36,14 @@ const Editor: React.FC<EditorProps> = ({ height }) => {
     if (newExisting === '') {
       removeLocalStorage(SCHEMA_EXISTING);
     } else {
-      updateLocalStorage(SCHEMA_EXISTING, btoa(newExisting));
+      updateLocalStorage(SCHEMA_EXISTING, b64enc(newExisting));
     }
 
     setProposed(newProposed);
     if (newProposed === '') {
       removeLocalStorage(SCHEMA_PROPOSED);
     } else {
-      updateLocalStorage(SCHEMA_PROPOSED, btoa(newProposed));
+      updateLocalStorage(SCHEMA_PROPOSED, b64enc(newProposed));
     }
   };
 
